@@ -1,25 +1,22 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from fastapi.responses import FileResponse
 import uvicorn
 import os
 
 app = FastAPI()
 
-# Xabarlarni xotirada saqlash uchun ro'yxat
-messages = [] 
-
 @app.get("/")
-async def read_index():
+async def get():
     return FileResponse("index.html")
 
-@app.post("/send")
-async def send_message(msg: str):
-    messages.append(msg)
-    return {"status": "success", "message": msg}
-
-@app.get("/get-messages")
-async def get_messages():
-    return {"messages": messages}
+# WebSocket qismi
+@app.websocket("/ws/{client_id}")
+async def websocket_endpoint(websocket: WebSocket, client_id: str):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        # Xabarni barcha foydalanuvchilarga qaytarish
+        await websocket.send_json({"text": data, "sender": client_id})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
