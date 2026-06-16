@@ -1,24 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { background-color: #121212; color: #fff; font-family: sans-serif; display: flex; justify-content: center; padding: 20px; }
+        #chat-container { width: 100%; max-width: 400px; }
+        #box { height: 300px; border: 1px solid #333; overflow-y: scroll; padding: 10px; background: #1e1e1e; border-radius: 10px; margin-bottom: 10px; }
+        .bubble { background: #1D9E75; margin: 5px 0; padding: 10px; border-radius: 10px; }
+        #inp { background: #3d3d3d; border: none; color: white; padding: 10px; width: 70%; border-radius: 5px; }
+        button { background: #1D9E75; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
 <body>
-    <div id="box" style="height: 300px; border: 1px solid #ccc; overflow-y: scroll;"></div>
-    <input id="inp" type="text"><button onclick="send()">Jo'natish</button>
+    <div id="chat-container">
+        <div id="box"></div>
+        <input id="inp" type="text" placeholder="Xabar yozing...">
+        <button onclick="send()">Jo'natish</button>
+    </div>
 
     <script>
         async function send() {
-            let val = document.getElementById('inp').value;
+            let inp = document.getElementById('inp');
+            if(!inp.value.trim()) return;
             await fetch('/send', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({text: val})
+                body: JSON.stringify({text: inp.value})
             });
-            document.getElementById('inp').value = '';
+            inp.value = '';
         }
-
         async function update() {
             let res = await fetch('/messages');
             let data = await res.json();
-            document.getElementById('box').innerHTML = data.messages.map(m => `<div>${m}</div>`).join('');
+            document.getElementById('box').innerHTML = data.messages.map(m => `<div class="bubble">${m}</div>`).join('');
         }
         setInterval(update, 1000);
     </script>
