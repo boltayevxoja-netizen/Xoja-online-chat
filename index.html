@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        body { background-color: #121212; color: #fff; font-family: sans-serif; display: flex; justify-content: center; padding: 20px; }
-        #chat-container { width: 100%; max-width: 400px; }
-        #box { height: 300px; border: 1px solid #333; overflow-y: scroll; padding: 10px; background: #1e1e1e; border-radius: 10px; margin-bottom: 10px; }
-        .bubble { background: #1D9E75; margin: 5px 0; padding: 10px; border-radius: 10px; }
-        #inp { background: #3d3d3d; border: none; color: white; padding: 10px; width: 70%; border-radius: 5px; }
-        button { background: #1D9E75; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
-    </style>
+    body { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; height: 100vh; margin: 0; align-items: center; }
+    #chat-container { width: 90%; max-width: 450px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); padding: 20px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    #box { height: 350px; overflow-y: auto; padding: 10px; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .bubble { background: linear-gradient(45deg, #1D9E75, #128c7e); padding: 12px 18px; border-radius: 20px; margin-bottom: 10px; width: fit-content; box-shadow: 0 4px 10px rgba(0,0,0,0.2); animation: pop 0.3s ease-out; }
+    #inp { background: rgba(0,0,0,0.2); border: 1px solid #444; color: white; padding: 12px; width: 70%; border-radius: 12px; outline: none; }
+    button { background: #1D9E75; color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 12px; transition: 0.3s; }
+    button:hover { background: #17805e; transform: scale(1.05); }
+    @keyframes pop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
 </head>
 <body>
     <div id="chat-container">
