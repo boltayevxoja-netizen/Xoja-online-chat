@@ -1,11 +1,11 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, Response
 
 app = FastAPI()
 messages = []
 
 @app.get("/")
+@app.head("/") # UptimeRobot uchun
 async def get_index():
     return FileResponse("index.html")
 

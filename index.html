@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <style>
-    body { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; height: 100vh; margin: 0; align-items: center; }
-    #chat-container { width: 90%; max-width: 450px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); padding: 20px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-    #box { height: 350px; overflow-y: auto; padding: 10px; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-    .bubble { background: linear-gradient(45deg, #1D9E75, #128c7e); padding: 12px 18px; border-radius: 20px; margin-bottom: 10px; width: fit-content; box-shadow: 0 4px 10px rgba(0,0,0,0.2); animation: pop 0.3s ease-out; }
-    #inp { background: rgba(0,0,0,0.2); border: 1px solid #444; color: white; padding: 12px; width: 70%; border-radius: 12px; outline: none; }
-    button { background: #1D9E75; color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 12px; transition: 0.3s; }
-    button:hover { background: #17805e; transform: scale(1.05); }
-    @keyframes pop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    body { background: radial-gradient(circle, #1a1a2e, #16213e); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; height: 100vh; margin: 0; align-items: center; }
+    #chat-container { width: 95%; max-width: 400px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(20px); padding: 20px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    #box { height: 350px; overflow-y: auto; padding: 10px; margin-bottom: 15px; display: flex; flex-direction: column; scroll-behavior: smooth; }
+    #box::-webkit-scrollbar { width: 5px; }
+    #box::-webkit-scrollbar-thumb { background: #1D9E75; border-radius: 10px; }
+    .bubble { background: #1D9E75; padding: 10px 15px; border-radius: 15px; margin-bottom: 8px; align-self: flex-start; max-width: 80%; animation: slideIn 0.3s ease; }
+    #inp { background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; padding: 12px; width: 65%; border-radius: 12px; outline: none; }
+    button { background: #1D9E75; color: white; border: none; padding: 12px; cursor: pointer; border-radius: 12px; width: 25%; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
 </style>
 </head>
 <body>
