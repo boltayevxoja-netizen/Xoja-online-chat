@@ -1,23 +1,22 @@
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
-import uvicorn
-import os
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+messages = []
 
 @app.get("/")
-async def get():
+async def get_index():
     return FileResponse("index.html")
 
-# WebSocket qismi
-@app.websocket("/ws/{client_id}")
-async def websocket_endpoint(websocket: WebSocket, client_id: str):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        # Xabarni barcha foydalanuvchilarga qaytarish
-        await websocket.send_json({"text": data, "sender": client_id})
+@app.post("/send")
+async def send_msg(request: Request):
+    data = await request.json()
+    msg = data.get("text")
+    if msg:
+        messages.append(msg)
+    return {"status": "ok"}
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+@app.get("/messages")
+async def get_msgs():
+    return {"messages": messages}
